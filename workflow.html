@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Домашнее задание — Хемоинформатика</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head>
+<body data-page="workflow"><canvas id="bg"></canvas>
+<div class="links"><a href="index.html" data-p="home">Основная</a><a href="molecules.html" data-p="molecules">Молекулы</a><a href="workflow.html" data-p="workflow">Расчет</a></div></nav>
+<main>
+<section>
+  <div class="tag reveal">От набора данных до лекарства</div>
+  <h1 class="reveal d1" style="font-size:clamp(2rem,4vw,3rem)">Конвейер <span class="grad">виртуального</span> скрининга</h1>
+  <p class="lead reveal d2">Как рабочий процесс в области хемоинформатики сужает огромную библиотеку соединений до ограниченного числа кандидатов, достойных тестирования в лаборатории.</p>
+  <div class="timeline">
+    <div class="line"></div><div class="fill"></div>
+    <div class="step" data-n="1"><h3>Собирайте &amp; анализируйте</h3><p>Добавляйте струкруты и сведения о биологической активности из баз данных, например, PubChem and ChEMBL. Стандартизируйте их: уберите данные о соединениях, поправьте заряд, проверьте таутомеры и выбросите из рассмотрения дубликаты.</p></div>
+    <div class="step" data-n="2"><h3>Encode</h3><p>Преобразуйте каждую молекулу в числа — дескрипторы (MW, logP, TPSA) и отпечатки (на основе траектории, ECFP/Morgan), чтобы алгоритмы могли сравнивать их.</p></div>
+    <div class="step" data-n="3"><h3>Filter</h3><p>Применяйте правила подобия лекарств, такие как правило пяти Липински, и устраняйте реактивные или мешающие анализу субструктуры (PAINS).</p></div>
+    <div class="step" data-n="4"><h3>Найдите &amp; модель</h3><p>Ранжируйте по сходству с известными активами, привязывайте к белковой мишени или оценивайте с помощью QSAR / моделей машинного обучения, обученных измеряемой активности.</p></div>
+    <div class="step" data-n="5"><h3>Выберите &amp; проверьте</h3><p>Выберите разнообразную подгруппу с высокими оценками для синтеза и анализа. Результаты передаются в цикл "модели — проектирование–изготовление–тестирование–анализ"..</p></div>
+  </div>
+</section>
+
+<section id="fpSection">
+  <div class="tag reveal">Демонстрация в реальном времени</div>
+  <h2 class="reveal">Отпечатки &amp; сходство по Tanimoto</h2>
+  <p class="lead reveal" style="margin-top:6px">Каждая молекула разбивается на атомные цепочки (длиной до 5 атомов). Каждая цепочка хэшируется до одного из 128 битов. Похожие молекулы отображают похожие биты.</p>
+  <div class="fp-wrap">
+    <div class="card reveal">
+      <div class="input-row"><select id="molA"></select><select id="molB"></select><button class="btn primary" id="cmpBtn">Сравнить</button></div>
+      <h3 style="margin-top:18px;font-size:.95rem;color:var(--teal)">Молекула A</h3><div class="bits" id="bitsA"></div>
+      <h3 style="margin-top:16px;font-size:.95rem;color:var(--violet)">Молекула B</h3><div class="bits" id="bitsB"></div>
+      <div class="legend"><span><i style="background:var(--teal)"></i>только A</span><span><i style="background:var(--violet)"></i>только B</span><span><i style="background:var(--pink)"></i>shared</span></div>
+    </div>
+    <div class="card reveal d1">
+      <h3>коэффициент Танимото</h3>
+      <p>T = |A ∩ B| / |A ∪ B|. Оценка 1 означает идентичность отпечатков; выше ~0,7 обычно указывает на близкие аналоги.</p>
+      <div class="gauge">
+        <svg viewBox="0 0 150 150"><defs><linearGradient id="gg"><stop offset="0" stop-color="#2ee6c5"/><stop offset="1" stop-color="#ff6fa8"/></linearGradient></defs>
+          <circle class="track" cx="75" cy="75" r="60"/><circle class="val" cx="75" cy="75" r="60"/></svg>
+        <div><b id="tani" class="mono grad" style="font-size:2.8rem">0.00</b><div id="taniInfo" style="color:var(--muted);font-size:.85rem;margin-top:6px"></div></div>
+      </div>
+      <p class="hint" style="margin-top:14px">Попробуйте сравнить дофамин с серотонином (родственными нейромедиаторами), затем дофамин с холестерином.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="tag reveal">Химическое пространство</div>
+  <h2 class="reveal">Картирование сходства с биологически активными соединениями</h2>
+  <p class="lead reveal" style="margin-top:6px">Молекулярный вес и logP для молекул в галерее. Зеленые точки соответствуют всем критериям "Правила из пяти", розовые - нарушают хотя бы один из них. Наведите курсор на точку для получения подробной информации.</p>
+  <div class="card reveal" style="position:relative">
+    <canvas id="space"></canvas>
+    <div id="spaceTip" style="position:absolute;pointer-events:none;opacity:0;transition:opacity .2s;background:var(--bg);border:1px solid var(--line);padding:8px 12px;border-radius:10px;font-size:.82rem"></div>
+  </div>
+</section>
+</main>
+<footer><span>© <span id="year"></span> Домашнее задание · Интерактивное введение в хемоинформатику</span></footer>
+<script src="main.js"></script></body></html>

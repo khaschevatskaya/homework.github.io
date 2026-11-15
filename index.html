@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Домашнее задание — Хемоинформатика</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head>
+<body data-page="home"><canvas id="bg"></canvas>
+<div class="links"><a href="index.html" data-p="home">Основная</a><a href="molecules.html" data-p="molecules">Молекулы</a><a href="workflow.html" data-p="workflow">Расчет</a></div></nav>
+<main>
+<section class="hero">
+  <div>
+    <h1 class="reveal d1">Turning <span class="grad">molecules</span><br>into data.</h1>
+    <p class="lead reveal d2">Хемоинформатика использует алгоритмы, базы данных, машинное обучение, чтобы демонстрировать, искать и предсказывать поведение химических компонентов -- от первых идей до финального лекарства.</p>
+    <div class="reveal d3" style="display:flex;gap:12px;flex-wrap:wrap">
+      <a class="btn primary" href="molecules.html">Открыть для себя молекулы →</a>
+      <a class="btn" href="workflow.html">Заглянуть в рабочий процесс</a>
+    </div>
+    <div class="smiles-type mono reveal d3"><small id="typedname"></small><span id="typed"></span><span class="caret"></span></div>
+  </div>
+  <div style="text-align:center">
+    <canvas id="mol3d"></canvas>
+    <div style="display:flex;justify-content:center;align-items:center;gap:14px;color:var(--muted);font-size:.9rem">
+      <span>Сейчас Вы видите: <b id="molname" style="color:var(--text)"></b></span>
+      <button class="btn" id="nextmol" style="padding:8px 14px">Next molecule ↻</button>
+    </div>
+    <div class="hint">Потяните, чтобы прокрутить · структура генерируется в реальном времени на основе SMILES</div>
+  </div>
+</section>
+
+<section>
+  <div class="stats">
+    <div class="stat reveal"><b class="grad" data-count="100" data-suffix="M+">0</b><span>compounds in public databases</span></div>
+    <div class="stat reveal d1"><b class="grad" data-count="60" data-suffix="">0</b><span>orders of magnitude: est. drug-like chemical space (10<sup>60</sup>)</span></div>
+    <div class="stat reveal d2"><b class="grad" data-count="4" data-suffix="">0</b><span>criteria in Lipinski's "Rule of Five" for oral drugs</span></div>
+    <div class="stat reveal d3"><b class="grad" data-count="1" data-dec="0" data-suffix=" string">0</b><span>is all SMILES needs to encode a molecule</span></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="reveal">Чем занимается хемоинформатика</h2>
+  <div class="grid" style="margin-top:28px">
+    <div class="card reveal"><div class="icon">⌬</div><h3>Демонстрация</h3><p>Молекумы становятся доступными для прочтения языковой моделью в качестве строки символов (SMILES, InChI), возможно создать таблицы взаимодействий и молекулярные графы.</p></div>
+    <div class="card reveal d1"><div class="icon">⚖</div><h3>Описание</h3><p>Числа, связывающие структуру в единое целое: молекулярная масса, значение logP, способность к электрон-акцепторности, заряженность поверхности и многие другие характеристики.</p></div>
+    <div class="card reveal d2"><div class="icon">⧉</div><h3>Поиск свойств</h3><p>Двоиснче отпечатки и the Tanimoto coefficient позволяют найти близкие аналоги среди миллионов молекул за считанные секунды.</p></div>
+    <div class="card reveal d3"><div class="icon">◎</div><h3>QSAR (предсказание свойств на основе струкруты) &amp; ML</h3><p>Модели позволяют связать структуру с активностью, токсичностью, растворимостью, чтобы в дальнейшем был составлен план синтетической работы.</p></div>
+  </div>
+</section>
+
+<section class="reveal" style="text-align:center">
+  <h2>Готовы заглянуть внутрь молекулы?</h2>
+  <p class="lead" style="margin:12px auto 26px">Вставьте структуру в виде строки SMILES и посмотрите, как она собирается в 3D-модель, [характеристики которой были рассчитаны в Вашем браузере].</p>
+  <a class="btn primary" href="molecules.html">Открыть визуализатор из SMILES→</a>
+</section>
+</main>
+<footer><span>© <span id="year"></span> Домашнее задание · интерактивное введение в хемоинформатику</span></footer>
+<script src="main.js"></script></body></html>

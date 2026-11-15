@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Домашнее задание — хемоинформатика</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head>
+<body data-page="molecules"><canvas id="bg"></canvas>
+<div class="links"><a href="index.html" data-p="home">Основная</a><a href="molecules.html" data-p="molecules">Молекулы</a><a href="workflow.html" data-p="workflow">Расчет</a></div></nav>
+<main>
+<section>
+  <div class="tag reveal">Интерактивный инструмент</div>
+  <h1 class="reveal d1" style="font-size:clamp(2rem,4vw,3rem)">SMILES <span class="grad">анализатор</span></h1>
+  <p class="lead reveal d2">SMILES (Simplified Molecular Input Line Entry System) записывает структуру молекулы как текст: атомы -- буквы, связи обозначаются <code>=</code> или <code>#</code>, ответвления записываются в скобках, кольца -- цифры. Впишите одну молекулу в поле ниже.</p>
+  <div class="analyzer">
+    <div class="card reveal">
+      <div class="input-row"><input type="text" id="smiIn" spellcheck="false" placeholder="e.g. CC(=O)OC1=CC=CC=C1C(=O)O"><button class="btn primary" id="anaBtn">Analyze</button></div>
+      <div class="err" id="err"></div>
+      <div class="chips" id="chips"></div>
+      <canvas id="anaCanvas" style="width:100%;height:280px;margin-top:10px;cursor:grab"></canvas>
+    </div>
+    <div class="card reveal d1">
+      <h3 style="margin-bottom:14px">Рассчитанные характеристики</h3>
+      <div class="results">
+        <div class="res"><span>Формула</span><b id="rFormula">—</b></div>
+        <div class="res"><span>Молекулярная масса</span><b id="rMW">—</b></div>
+        <div class="res"><span>Тяжелые атомы</span><b id="rHeavy">—</b></div>
+        <div class="res"><span>Кольца</span><b id="rRings">—</b></div>
+        <div class="res"><span>H-доноры</span><b id="rHBD">—</b></div>
+        <div class="res"><span>H-акцепторы (N+O)</span><b id="rHBA">—</b></div>
+        <div class="res"><span>Вращающиеся связи</span><b id="rRot">—</b></div>
+        <div class="res"><span>Нарушение правила 5 (excl. logP)</span><b id="rLip">—</b></div>
+      </div>
+      <p class="hint" style="margin-top:14px">Поддерживаются неорганические включения (B C N O P S F Cl Br I), ароматические мелкие атомы, атомы в скобках как <code>[nH]</code>, замкнутые кольца и разветвления. Стереоизомерия не учитывается.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="tag reveal">Галерея</div>
+  <h2 class="reveal">Известные молекулы</h2>
+  <p class="lead reveal" style="margin-top:6px">Каждая молекула, представленная ниже, строится в реальном времени на основе ее SMILES. Нажмите на ее карточку, чтобы увидеть ее профиль сходства с биологически активными соединениями.</p>
+  <div class="grid" id="gallery"></div>
+</section>
+</main>
+<footer><span>© <span id="year"></span> Домашее задание · интерактивное введение в хемоинформатику</span></footer>
+<script src="main.js"></script></body></html>
